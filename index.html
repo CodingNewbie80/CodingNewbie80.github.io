@@ -1,72 +1,735 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodingNewbie80 | Self-Taught Dev Journey</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --primary: #6366f1; --dark: #1e1b4b; --light: #f8fafc; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--light); color: var(--dark); line-height: 1.6; }
-        header { background: linear-gradient(135deg, var(--dark) 0%, #312e81 100%); color: white; text-align: center; padding: 100px 20px; }
-        h1 { font-size: 3.5rem; margin: 0 0 16px; font-weight: 700; }
-        .tagline { font-size: 1.4rem; max-width: 700px; margin: 0 auto 24px; opacity: 0.9; }
-        .social { margin-top: 20px; }
-        .social a { color: white; margin: 0 12px; font-size: 1.2rem; text-decoration: none; transition: opacity 0.3s; }
-        .social a:hover { opacity: 0.7; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
-        h2 { text-align: center; font-size: 2.2rem; margin-bottom: 40px; color: var(--dark); }
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .project-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s; }
-        .project-card:hover { transform: translateY(-8px); }
-        .project-content { padding: 24px; text-align: center; }
-        .project-content h3 { margin: 0 0 12px; font-size: 1.5rem; color: var(--primary); }
-        .project-content p { margin: 0 0 16px; color: #64748b; }
-        .btn { display: inline-block; background: var(--primary); color: white; padding: 10px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: background 0.3s; }
-        .btn:hover { background: #4f46e5; }
-        footer { text-align: center; padding: 40px 20px; background: var(--dark); color: white; font-size: 0.9rem; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coding Newbie — Learning to build with AI from absolute zero</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
+
+  :root {
+    --purple-50: #EEEDFE; --purple-800: #3C3489; --purple-900: #26215C;
+    --teal-50: #E1F5EE; --teal-600: #0F6E56; --teal-800: #085041;
+    --blue-50: #E6F1FB; --blue-600: #185FA5; --blue-800: #0C447C;
+    --coral-50: #FAECE7; --coral-700: #712B13; --coral-800: #712B13;
+    --amber-50: #FAEEDA; --amber-700: #633806;
+    --green-50: #EAF3DE; --green-700: #27500A; --green-800: #3B6D11;
+    --gray-50: #F1EFE8; --gray-400: #888780; --gray-700: #444441;
+    --bg: #ffffff; --bg-secondary: #f7f6f3; --text: #1a1a1a;
+    --text-secondary: #5a5a58; --text-tertiary: #888780;
+    --border: rgba(0,0,0,0.12); --border-strong: rgba(0,0,0,0.22);
+    --radius-md: 8px; --radius-lg: 12px;
+    --accent: #3C3489;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a18; --bg-secondary: #242422; --text: #f0ede8;
+      --text-secondary: #a8a5a0; --text-tertiary: #6a6a68;
+      --border: rgba(255,255,255,0.10); --border-strong: rgba(255,255,255,0.20);
+      --purple-50: #26215C; --purple-800: #CECBF6;
+      --teal-50: #04342C; --teal-800: #9FE1CB;
+      --blue-50: #042C53; --blue-800: #B5D4F4;
+      --coral-50: #4A1B0C; --coral-700: #F0997B;
+      --amber-50: #412402; --amber-700: #FAC775;
+      --green-50: #173404; --green-700: #C0DD97; --green-800: #97C459;
+      --gray-50: #2C2C2A; --gray-700: #D3D1C7;
+      --accent: #CECBF6;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-logo span {
+    color: var(--purple-800);
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-twitter {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary) !important;
+    padding: 5px 10px;
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    transition: all 0.15s !important;
+  }
+  .nav-twitter:hover {
+    color: var(--text) !important;
+    border-color: var(--border-strong);
+    background: var(--bg-secondary);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 3rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--teal-600);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    padding: 4px 10px;
+    background: var(--teal-50);
+    border-radius: 20px;
+    border: 0.5px solid rgba(15,110,86,0.2);
+  }
+  @media (prefers-color-scheme: dark) {
+    .hero-eyebrow { color: var(--teal-800); border-color: rgba(159,225,203,0.15); }
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal-600);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 1rem;
+    max-width: 680px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-secondary);
+  }
+  .hero-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 580px;
+    margin-bottom: 1.75rem;
+  }
+  .hero-desc strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid var(--border);
+    margin-top: 1.75rem;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+  }
+  .stat-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 1px;
+  }
+  .stat-divider {
+    width: 0.5px;
+    height: 28px;
+    background: var(--border);
+  }
+
+  /* ── ABOUT STRIP ── */
+  .about-strip {
+    background: var(--bg-secondary);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .about-strip-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 640px) {
+    .about-strip-inner { grid-template-columns: 1fr; gap: 1rem; }
+    .stat-divider { display: none; }
+  }
+  .about-card {
+    padding: 1rem;
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .about-card-icon {
+    font-size: 18px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .about-card-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .about-card-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ── MAIN CONTENT WRAPPER ── */
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .section-header h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .section-header p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .made-by {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-tertiary);
+    padding: 3px 8px;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    margin-top: 8px;
+  }
+
+  /* ── (ALL LEARNING PLAN STYLES FROM ORIGINAL) ── */
+  .legend { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 1.5rem; padding: .65rem .9rem; background: var(--bg-secondary); border-radius: var(--radius-md); border: 0.5px solid var(--border); }
+  .legend-label { font-size: 11px; font-weight: 500; color: var(--text-secondary); }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-secondary); }
+  .phase { margin-bottom: 2.25rem; }
+  .phase-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+  .phase-title { font-size: 17px; font-weight: 500; color: var(--text); }
+  .phase-meta { font-size: 12px; color: var(--text-tertiary); margin-left: auto; }
+  .phase-sub { font-size: 13px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+  .b-p1 { background: var(--purple-50); color: var(--purple-800); }
+  .b-p2 { background: var(--blue-50); color: var(--blue-800); }
+  .b-p3 { background: var(--teal-50); color: var(--teal-800); }
+  .b-p4 { background: var(--coral-50); color: var(--coral-700); }
+  .b-p5 { background: var(--amber-50); color: var(--amber-700); }
+  .b-p6 { background: var(--green-50); color: var(--green-700); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+  .card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: .9rem 1rem; }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+  .card-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; }
+  .card-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 8px; }
+  .card-link { font-size: 11px; color: var(--blue-600); text-decoration: none; display: block; margin-bottom: 6px; }
+  .card-link:hover { text-decoration: underline; }
+  .card-ftr { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; padding-top: 7px; border-top: 0.5px solid var(--border); }
+  .prov { font-size: 10px; padding: 2px 7px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; font-weight: 500; }
+  .p-ms { background: var(--blue-50); color: var(--blue-800); }
+  .p-google { background: var(--green-50); color: var(--green-700); }
+  .p-nvidia { background: var(--green-50); color: var(--green-800); }
+  .p-anth { background: var(--purple-50); color: var(--purple-800); }
+  .p-fcc { background: var(--coral-50); color: var(--coral-700); }
+  .p-aws { background: var(--amber-50); color: var(--amber-700); }
+  .cert-free { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: var(--teal-50); color: var(--teal-800); font-weight: 500; }
+  .cert-paid { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: var(--coral-50); color: var(--coral-700); font-weight: 500; }
+  .no-cert { font-size: 11px; padding: 2px 6px; border-radius: 4px; background: var(--bg-secondary); color: var(--text-tertiary); border: 0.5px solid var(--border); }
+  .tag { font-size: 11px; padding: 2px 6px; border-radius: 4px; background: var(--bg-secondary); color: var(--text-secondary); border: 0.5px solid var(--border); }
+  .section-lbl { font-size: 11px; font-weight: 500; color: var(--text-tertiary); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 8px; margin-top: 12px; }
+  .pub-box { background: var(--bg-secondary); border-left: 2px solid #5DCAA5; padding: .65rem 1rem; font-size: 12px; color: var(--text-secondary); margin-top: 10px; line-height: 1.65; }
+  .pub-label { font-size: 11px; font-weight: 500; color: var(--teal-600); display: block; margin-bottom: 3px; }
+  .divider { height: 0.5px; background: var(--border); margin: .25rem 0 1.75rem; }
+  .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; }
+  .cert-item { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-md); padding: .7rem .85rem; display: flex; align-items: flex-start; gap: 8px; }
+  .cert-icon { width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; }
+  .ci-fcc { background: var(--coral-50); color: var(--coral-700); }
+  .ci-google { background: var(--green-50); color: var(--green-700); }
+  .ci-nvidia { background: var(--green-50); color: var(--green-800); }
+  .ci-anth { background: var(--purple-50); color: var(--purple-800); }
+  .ci-ms { background: var(--blue-50); color: var(--blue-800); }
+  .ci-aws { background: var(--amber-50); color: var(--amber-700); }
+  .cert-name { font-size: 12px; font-weight: 500; color: var(--text); }
+  .cert-meta { font-size: 11px; color: var(--text-secondary); margin-top: 1px; }
+  .footer-box { background: var(--bg-secondary); border-radius: var(--radius-lg); border: 0.5px solid var(--border); padding: .9rem 1rem; margin-top: 1.5rem; }
+  .footer-box p:first-child { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .footer-box p:last-child { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+
+  /* ── SITE FOOTER ── */
+  .site-footer {
+    border-top: 0.5px solid var(--border);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .site-footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+  .footer-twitter {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .footer-twitter:hover { color: var(--text); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.4s ease both; }
+  .hero h1 { animation: fadeUp 0.4s 0.08s ease both; }
+  .hero-desc { animation: fadeUp 0.4s 0.16s ease both; }
+  .hero-stats { animation: fadeUp 0.4s 0.24s ease both; }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 1rem; }
+    .hero { padding: 2.5rem 1rem 2rem; }
+    .main { padding: 1.5rem 1rem 3rem; }
+    .site-footer { padding: 1.25rem 1rem; }
+  }
+</style>
 </head>
 <body>
-    <header>
-        <h1>CodingNewbie80</h1>
-        <p class="tagline"><p class="tagline">Self-taught dev learning to build any digital solution in any digital world.<br>From technophobe to full-stack generalist, one line at a time. #learninpublic</p>
-        <div class="social">
-            <a href="https://x.com/CodingNewbie80" target="_blank">Follow on X →</a>
-        </div>
-    </header>
 
-    <div class="container">
-        <h2>My Journey So Far</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-content">
-                <h3>Destination Dubai – Luxury Travel Agency</h3>
-                <p>Responsive product landing page promoting luxury holidays in Dubai. Features hero section, package highlights, and visual itinerary gallery with images.</p>
-                <p><strong>Client brief from Grok:</strong> Build a promotional landing page for a high-end travel brand.</p>
-                <a href="https://codingnewbie80.github.io/destination-dubai/" target="_blank" class="btn">Live Demo</a>
-                <a href="https://github.com/CodingNewbie80/destination-dubai" target="_blank" class="btn">View Code</a>
-            </div>
-        </div>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">coding<span>newbie</span></a>
+  <div class="nav-links">
+    <a href="#plan">The plan</a>
+    <a href="#about">About</a>
+    <a class="nav-twitter" href="https://twitter.com/" target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.631L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+      Follow on X
+    </a>
+  </div>
+</nav>
 
-        <div class="project-card">
-            <div class="project-content">
-                <h3>Event Hub – Digital World Conferences</h3>
-                <p>Semantic HTML page showcasing upcoming and past Web3/Metaverse events with navigation, sections, and thematic imagery.</p>
-                <p><strong>Client brief from Grok:</strong> Create an event listing page for virtual and blockchain-focused conferences.</p>
-                <a href="https://codingnewbie80.github.io/event-hub/" target="_blank" class="btn">Live Demo</a>
-                <a href="https://github.com/CodingNewbie80/event-hub" target="_blank" class="btn">View Code</a>
-            </div>
-        </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Learning in public · started from zero</div>
+  <h1>Going from total technophobe<br>to <em>AI agent specialist</em> — in public.</h1>
+  <p class="hero-desc">
+    I couldn't code. I didn't know what an API was. Tech jargon made my eyes glaze over.
+    <strong>I'm documenting every step of learning to build with AI</strong> — the confusion, the breakthroughs, the certifications, and the things I build along the way. If you're starting from nothing, you're in the right place.
+  </p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;">
+    <a href="#plan" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--bg);background:var(--purple-800);padding:8px 16px;border-radius:20px;text-decoration:none;transition:opacity 0.15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">See the full plan ↓</a>
+    <a href="https://twitter.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-secondary);padding:8px 16px;border-radius:20px;border:0.5px solid var(--border);text-decoration:none;transition:all 0.15s;" onmouseover="this.style.background='var(--bg-secondary)'" onmouseout="this.style.background='transparent'">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.631L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+      Follow the journey
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">6</span>
+      <span class="stat-label">phases</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num">14</span>
+      <span class="stat-label">certifications</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num">6</span>
+      <span class="stat-label">things built & published</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num">0</span>
+      <span class="stat-label">prior coding experience</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip" id="about">
+  <div class="about-strip-inner">
+    <div class="about-card">
+      <span class="about-card-icon">🙋</span>
+      <div class="about-card-title">Who this is</div>
+      <p class="about-card-desc">A complete beginner. No CS degree, no coding background, no technical contacts. Just curiosity, stubbornness, and a structured plan.</p>
+    </div>
+    <div class="about-card">
+      <span class="about-card-icon">🗺️</span>
+      <div class="about-card-title">What the plan is</div>
+      <p class="about-card-desc">A 6-phase roadmap built with Microsoft, Google, NVIDIA, Anthropic, AWS, and freeCodeCamp — designed specifically to go from zero to AI agent specialist.</p>
+    </div>
+    <div class="about-card">
+      <span class="about-card-icon">📢</span>
+      <div class="about-card-title">Why in public</div>
+      <p class="about-card-desc">Learning out loud keeps you accountable and helps others who are on the same road. Every milestone gets a post. Nothing gets hidden.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN — LEARNING PLAN -->
+<main class="main" id="plan">
+
+  <div class="section-header">
+    <h2>The learning plan — AI agent specialist</h2>
+    <p>Six phases, built from scratch. Microsoft · Google · NVIDIA · Anthropic · AWS · freeCodeCamp — direct from the big players. Certifications marked throughout.</p>
+    <span class="made-by">✦ plan designed by Claude (Anthropic) · I'll build this myself one day</span>
+  </div>
+
+  <div class="legend">
+    <span class="legend-label">Cert key:</span>
+    <div class="legend-item"><span class="cert-free">cert — free</span><span>free cert included</span></div>
+    <div class="legend-item"><span class="cert-paid">cert — paid exam</span><span>free study, paid exam</span></div>
+    <div class="legend-item"><span class="no-cert">no cert</span><span>no cert but core content</span></div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase">
+    <div class="phase-hdr">
+      <span class="badge b-p1">Phase 1</span>
+      <span class="phase-title">Microsoft AI Agents for Beginners — concepts only</span>
+      <span class="phase-meta">~2 weeks · no coding required</span>
+    </div>
+    <p class="phase-sub">A brilliant free introduction to the world of AI agents — and the perfect starting point before a single line of code is written. Work through all 12 episodes with Obsidian open, taking notes in your own words. <strong>Skip every code section entirely</strong> — you don't have Python yet and that's completely fine. The goal here is building your mental map: what agents are, how they think, what problems they solve. You'll return to the code sections after Phase 2 once Python is under your belt, and they'll make complete sense at that point.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-top"><span class="card-title">AI Agents for Beginners — 12 episodes (concepts pass)</span><span class="prov p-ms">Microsoft</span></div>
+        <p class="card-desc">Covers agent design patterns, AutoGen, Semantic Kernel, RAG, multi-agent systems, and tool use. Watch everything, note everything, skip all code snippets. A second pass for the code comes later in Phase 4.</p>
+        <a class="card-link" href="https://learn.microsoft.com/en-gb/shows/ai-agents-for-beginners/" target="_blank">learn.microsoft.com/shows/ai-agents-for-beginners ↗</a>
+        <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">concepts only</span><span class="tag">skip code sections</span><span class="tag">Obsidian notes</span></div>
+      </div>
+    </div>
+    <div class="pub-box">
+      <span class="pub-label">Learn in public brief #1 — trigger: all 12 episodes watched</span>
+      "12 things I learned about AI agents from Microsoft" — one concrete insight per lesson in plain English. No code, no jargon. First post on the Coding Newbie site.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHASE 2 -->
+  <div class="phase">
+    <div class="phase-hdr">
+      <span class="badge b-p2">Phase 2</span>
+      <span class="phase-title">Python foundations</span>
+      <span class="phase-meta">~4–5 weeks</span>
+    </div>
+    <p class="phase-sub">Everything in this plan runs on Python. Get solid here before moving on — it pays back every hour you invest. The Anthropic GitHub notebooks layer in naturally from week 3 onwards. Once complete, return to the Microsoft Phase 1 code sections — they'll make perfect sense now.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Scientific Computing with Python (v9)</span><span class="prov p-fcc">freeCodeCamp</span></div>
+        <p class="card-desc">15 real projects built in-browser. The most structured free Python cert available — project-based from day one. Your primary Python course.</p>
+        <a class="card-link" href="https://www.freecodecamp.org/learn/python-v9/" target="_blank">freecodecamp.org/learn/python-v9 ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">primary</span><span class="tag">~40 hrs</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-title">Anthropic GitHub courses — API fundamentals notebooks</span><span class="prov p-anth">Anthropic</span></div>
+        <p class="card-desc">Jupyter notebooks covering the Claude SDK, API keys, streaming, and multimodal prompts. Start these in week 3 alongside Python — they reinforce each other perfectly.</p>
+        <a class="card-link" href="https://github.com/anthropics/courses" target="_blank">github.com/anthropics/courses ↗</a>
+        <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">start week 3</span><span class="tag">notebooks</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-title">AI Agents for Beginners — code sections revisit</span><span class="prov p-ms">Microsoft</span></div>
+        <p class="card-desc">Return to the 12 Microsoft episodes now that Python makes sense. Work through the Semantic Kernel and AutoGen code sections you skipped in Phase 1 — a completely different experience with Python under your belt.</p>
+        <a class="card-link" href="https://github.com/microsoft/ai-agents-for-beginners" target="_blank">github.com/microsoft/ai-agents-for-beginners ↗</a>
+        <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">code sections only</span><span class="tag">fork & run the repo</span></div>
+      </div>
+    </div>
+    <div class="pub-box">
+      <span class="pub-label">Learn in public brief #2 — trigger: fCC Python cert earned</span>
+      Build and publish a small Python tool that does something genuinely useful to you. First cert goes on the portfolio page.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHASE 3 -->
+  <div class="phase">
+    <div class="phase-hdr">
+      <span class="badge b-p3">Phase 3</span>
+      <span class="phase-title">AI fundamentals — Google, Microsoft & NVIDIA</span>
+      <span class="phase-meta">~3–4 weeks · runs alongside end of Phase 2</span>
+    </div>
+    <p class="phase-sub">Build the conceptual foundation across multiple big players before going deep. These courses are deliberately non-technical or lightly technical — they're about understanding the landscape.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Introduction to Generative AI learning path</span><span class="prov p-google">Google Cloud</span></div>
+        <p class="card-desc">Three-course path: Intro to Gen AI, Intro to LLMs, and Responsible AI. Free on Google Cloud Skills Boost — earns skill badges. Join the GEAR programme for 35 free monthly credits.</p>
+        <a class="card-link" href="https://www.skills.google/paths/118" target="_blank">skills.google/paths/118 ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">skill badges</span><span class="tag">GEAR programme</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-title">Generative AI for Beginners (21 lessons)</span><span class="prov p-ms">Microsoft</span></div>
+        <p class="card-desc">Microsoft's open-source GitHub course covering how LLMs work, RAG, fine-tuning, and responsible AI. Python code examples throughout. The best free conceptual deep-dive available.</p>
+        <a class="card-link" href="https://github.com/microsoft/generative-ai-for-beginners" target="_blank">github.com/microsoft/generative-ai-for-beginners ↗</a>
+        <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">core reading</span><span class="tag">21 lessons</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-title">Generative AI Explained (no-code intro)</span><span class="prov p-nvidia">NVIDIA DLI</span></div>
+        <p class="card-desc">NVIDIA's free, no-code intro to generative AI — how it works, use cases, and limitations. Short (~2 hrs) but earns an NVIDIA DLI certificate. A great first NVIDIA credential.</p>
+        <a class="card-link" href="https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-07+V1" target="_blank">learn.nvidia.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">NVIDIA DLI</span><span class="tag">~2 hrs</span></div>
+      </div>
+    </div>
+    <div class="pub-box">
+      <span class="pub-label">Learn in public brief #3 — trigger: Phase 3 complete</span>
+      An illustrated explainer: "How generative AI actually works" — written for a complete beginner. Pulls together what you've learned from Google, Microsoft, and NVIDIA into one coherent post.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHASE 4 -->
+  <div class="phase">
+    <div class="phase-hdr">
+      <span class="badge b-p4">Phase 4</span>
+      <span class="phase-title">Prompt engineering & the Claude API — Anthropic</span>
+      <span class="phase-meta">~3–4 weeks</span>
+    </div>
+    <p class="phase-sub">Now you know how LLMs work, learn to talk to them properly and start building with the Claude API. Anthropic takes centre stage here as a focused thread — not the whole plan.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Claude 101</span><span class="prov p-anth">Anthropic Academy</span></div>
+        <p class="card-desc">Core features, capabilities, and limits. Do this first — sets the vocabulary for everything in the Academy that follows.</p>
+        <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">start here</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-title">AI Fluency: Framework & Foundations</span><span class="prov p-anth">Anthropic Academy</span></div>
+        <p class="card-desc">Anthropic's 4D framework for designing, evaluating and iterating on prompts. Foundational for everything that follows in the developer track.</p>
+        <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">prompt engineering</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-title">Prompt Engineering Interactive Tutorial</span><span class="prov p-anth">Anthropic</span></div>
+        <p class="card-desc">9-chapter hands-on notebook course direct from Anthropic. Covers basic to advanced: chain-of-thought, tool use, RAG. The practical companion to AI Fluency above.</p>
+        <a class="card-link" href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank">github.com/anthropics/prompt-eng-interactive-tutorial ↗</a>
+        <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">hands-on</span><span class="tag">notebooks</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-title">Building with the Claude API</span><span class="prov p-anth">Anthropic Academy</span></div>
+        <p class="card-desc">8+ hrs. System prompts, tool use, context windows, RAG, architecture patterns. The most important single Anthropic course in this plan — this is how you build real AI products.</p>
+        <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">core</span><span class="tag">8+ hrs</span><span class="tag">Python</span></div>
+      </div>
+    </div>
+    <div class="pub-box">
+      <span class="pub-label">Learn in public brief #4 — trigger: Claude API course done</span>
+      Build and publish something that calls Claude — a real tool, not a demo. Could be a writing assistant, a data parser, anything genuinely useful. Your first AI product on the site.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHASE 5 -->
+  <div class="phase">
+    <div class="phase-hdr">
+      <span class="badge b-p5">Phase 5</span>
+      <span class="phase-title">Building AI agents — Microsoft, Google & NVIDIA</span>
+      <span class="phase-meta">~6–8 weeks · the engineering core</span>
+    </div>
+    <p class="phase-sub">This is where you go from "I understand AI" to "I can build agents". Three major players, three complementary perspectives — Microsoft on frameworks, Google on cloud-native agents, NVIDIA on production RAG systems.</p>
+
+    <div class="section-lbl">Microsoft — agent frameworks & Copilot Studio</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-top"><span class="card-title">AI Agents for Beginners (full GitHub course)</span><span class="prov p-ms">Microsoft</span></div>
+        <p class="card-desc">12 lessons with code: agent design patterns, tool use, RAG, multi-agent systems, AutoGen, Semantic Kernel, and Azure AI Foundry. Works with free GitHub Models.</p>
+        <a class="card-link" href="https://microsoft.github.io/ai-agents-for-beginners/" target="_blank">microsoft.github.io/ai-agents-for-beginners ↗</a>
+        <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">core</span><span class="tag">Python</span><span class="tag">run the code</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-title">Applied Skills: Create agents in Copilot Studio</span><span class="prov p-ms">Microsoft Learn</span></div>
+        <p class="card-desc">Microsoft's lab-assessed credential. Scenario-based assessment proving you can build agents in Copilot Studio. Free to earn — highly relevant for enterprise and freelance client work.</p>
+        <a class="card-link" href="https://learn.microsoft.com/en-us/credentials/applied/create-agents-copilot-studio/" target="_blank">learn.microsoft.com/credentials ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">lab-assessed</span><span class="tag">enterprise value</span></div>
+      </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 CodingNewbie80 | Built with HTML, CSS & determination 🚀</p>
-    <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 8px;">
-        Initial version created with AI assistance (Grok)—I'll rebuild it myself as I level up my skills! #learninpublic
-    </p>
-    </footer>
+    <div class="section-lbl">Google — cloud-native agent development</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Agentic AI on Google Cloud learning path</span><span class="prov p-google">Google Cloud</span></div>
+        <p class="card-desc">Multi-agent systems, Agent Development Kit (ADK), MCP integration, and enterprise deployment on Google Cloud. Hands-on labs in real GCP environments via GEAR programme credits.</p>
+        <a class="card-link" href="https://www.skills.google/paths/3273" target="_blank">skills.google/paths/3273 ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">skill badge</span><span class="tag">ADK</span><span class="tag">MCP</span></div>
+      </div>
+    </div>
+
+    <div class="section-lbl">NVIDIA — RAG agents & production LLM systems</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Building RAG Agents with LLMs</span><span class="prov p-nvidia">NVIDIA DLI</span></div>
+        <p class="card-desc">NVIDIA's flagship agent course. Covers dialog management, document reasoning, state management, and deploying agentic systems at scale. Earns a DLI certificate on assessment completion.</p>
+        <a class="card-link" href="https://courses.nvidia.com/courses/course-v1:DLI+S-FX-15+V1/" target="_blank">courses.nvidia.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">NVIDIA DLI</span><span class="tag">RAG</span><span class="tag">production</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-title">Intro to Model Context Protocol (MCP)</span><span class="prov p-anth">Anthropic Academy</span></div>
+        <p class="card-desc">Build MCP servers and clients in Python. Tools, resources, and prompts — the three primitives that let any AI agent talk to the outside world.</p>
+        <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">MCP</span><span class="tag">Python SDK</span></div>
+      </div>
+    </div>
+    <div class="pub-box">
+      <span class="pub-label">Learn in public brief #5 — trigger: Phase 5 complete</span>
+      Build and publish an MCP server that connects Claude to a real data source or tool. Your most impressive portfolio piece yet.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHASE 6 -->
+  <div class="phase">
+    <div class="phase-hdr">
+      <span class="badge b-p6">Phase 6</span>
+      <span class="phase-title">Cloud deployment — Azure (lead), Google Cloud & AWS</span>
+      <span class="phase-meta">~5–7 weeks · Azure first, others as bolt-ons</span>
+    </div>
+    <p class="phase-sub">Where do your agents live? Lead with Azure — Microsoft's free learning paths are the strongest and AZ-900 is the most recognised entry cloud credential. Google Cloud and AWS bolt on after.</p>
+
+    <div class="section-lbl">Azure — lead provider</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Azure Fundamentals (AZ-900) learning path</span><span class="prov p-ms">Microsoft Learn</span></div>
+        <p class="card-desc">Free study path covering cloud concepts, Azure services, and pricing models. The most widely recognised entry-level cloud cert globally. Study is free; exam is ~£90.</p>
+        <a class="card-link" href="https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/" target="_blank">learn.microsoft.com — AZ-900 ↗</a>
+        <div class="card-ftr"><span class="cert-paid">cert — paid exam ~£90</span><span class="tag">study free</span><span class="tag">globally recognised</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-title">Azure AI Fundamentals (AI-900) learning path</span><span class="prov p-ms">Microsoft Learn</span></div>
+        <p class="card-desc">Covers AI workloads, ML concepts, and Azure AI services. Natural follow-on from AZ-900 and directly relevant to deploying agents. Study free, paid exam ~£90.</p>
+        <a class="card-link" href="https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/" target="_blank">learn.microsoft.com — AI-900 ↗</a>
+        <div class="card-ftr"><span class="cert-paid">cert — paid exam ~£90</span><span class="tag">AI on Azure</span><span class="tag">agent deployment</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><span class="card-title">Claude with Amazon Bedrock</span><span class="prov p-anth">Anthropic Academy</span></div>
+        <p class="card-desc">Deploy Claude via AWS Bedrock — RAG pipelines, tool use, batch processing, and production patterns in the AWS ecosystem. Directly from Anthropic, free cert included.</p>
+        <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">AWS</span><span class="tag">production</span></div>
+      </div>
+    </div>
+
+    <div class="section-lbl">Google Cloud — bolt-on</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Claude with Google Cloud Vertex AI</span><span class="prov p-anth">Anthropic Academy</span></div>
+        <p class="card-desc">Deploy Claude via Google Vertex AI — the full Claude API on GCP. Pairs with the Agentic AI path from Phase 4 to give you a complete GCP agent picture.</p>
+        <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">Google Cloud</span><span class="tag">Vertex AI</span></div>
+      </div>
+    </div>
+
+    <div class="section-lbl">AWS — bolt-on</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-top"><span class="card-title">AWS Cloud Practitioner Essentials</span><span class="prov p-aws">AWS</span></div>
+        <p class="card-desc">Amazon's free foundational cloud course. AWS is dominant in enterprise client work — add this after Azure. The Cloud Practitioner cert is the other major entry-level cloud credential alongside AZ-900.</p>
+        <a class="card-link" href="https://aws.amazon.com/training/learn-about/cloud-practitioner/" target="_blank">aws.amazon.com/training ↗</a>
+        <div class="card-ftr"><span class="cert-paid">cert — paid exam</span><span class="tag">study free</span><span class="tag">enterprise / client work</span></div>
+      </div>
+    </div>
+    <div class="pub-box">
+      <span class="pub-label">Learn in public brief #6 — trigger: first agent deployed to cloud</span>
+      A live agent, accessible via a URL, running on Azure or AWS Bedrock. The first thing you can actually send to a potential client.
+    </div>
+  </div>
+
+
+</main>
+
+<!-- SITE FOOTER -->
+<footer style="border-top: 0.5px solid var(--border); margin-top: 2rem;">
+  <div class="site-footer">
+    <p>© 2026 codingnewbie · site designed by Claude (Anthropic)</p>
+    <a class="footer-twitter" href="https://twitter.com/" target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.631L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+      Follow on X / Twitter
+    </a>
+  </div>
+</footer>
+
 </body>
 </html>
