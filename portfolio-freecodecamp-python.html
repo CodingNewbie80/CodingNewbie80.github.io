@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coding Newbie — freeCodeCamp Python Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
+
+  :root {
+    --purple-50: #EEEDFE; --purple-800: #3C3489;
+    --teal-50: #E1F5EE; --teal-600: #0F6E56; --teal-800: #085041;
+    --blue-50: #E6F1FB; --blue-600: #185FA5; --blue-800: #0C447C;
+    --coral-50: #FAECE7; --coral-700: #712B13;
+    --amber-50: #FAEEDA; --amber-700: #633806;
+    --green-50: #EAF3DE; --green-700: #27500A;
+    --bg: #ffffff; --bg-secondary: #f7f6f3; --text: #1a1a1a;
+    --text-secondary: #5a5a58; --text-tertiary: #888780;
+    --border: rgba(0,0,0,0.12); --border-strong: rgba(0,0,0,0.22);
+    --radius-md: 8px; --radius-lg: 12px;
+    --fcc: #712B13; --fcc-bg: #FAECE7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a18; --bg-secondary: #242422; --text: #f0ede8;
+      --text-secondary: #a8a5a0; --text-tertiary: #6a6a68;
+      --border: rgba(255,255,255,0.10); --border-strong: rgba(255,255,255,0.20);
+      --purple-50: #26215C; --purple-800: #CECBF6;
+      --teal-50: #04342C; --teal-800: #9FE1CB;
+      --blue-50: #042C53; --blue-800: #B5D4F4;
+      --coral-50: #4A1B0C; --coral-700: #F0997B;
+      --amber-50: #412402; --amber-700: #FAC775;
+      --green-50: #173404; --green-700: #C0DD97;
+      --fcc: #F0997B; --fcc-bg: #4A1B0C;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 52px;
+  }
+  .nav-logo { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--text); text-decoration: none; }
+  .nav-logo span { color: var(--purple-800); }
+  .nav-links { display: flex; align-items: center; gap: 16px; }
+  .nav-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-back { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-secondary) !important; padding: 5px 10px; border: 0.5px solid var(--border); border-radius: 20px; transition: all 0.15s !important; }
+  .nav-back:hover { color: var(--text) !important; border-color: var(--border-strong); background: var(--bg-secondary); }
+  .nav-twitter { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-secondary) !important; padding: 5px 10px; border: 0.5px solid var(--border); border-radius: 20px; transition: all 0.15s !important; }
+  .nav-twitter:hover { color: var(--text) !important; border-color: var(--border-strong); background: var(--bg-secondary); }
+
+  /* PAGE HEADER */
+  .page-hdr {
+    border-bottom: 0.5px solid var(--border);
+    padding: 3rem 1.5rem 2rem;
+    max-width: 960px; margin: 0 auto;
+  }
+  .breadcrumb {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--text-tertiary);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .breadcrumb a { color: var(--text-tertiary); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--text-secondary); }
+  .provider-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--fcc-bg); color: var(--fcc);
+    font-size: 11px; font-weight: 500;
+    padding: 3px 10px; border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .page-hdr h1 {
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 600; letter-spacing: -0.02em;
+    color: var(--text); margin-bottom: 6px; line-height: 1.2;
+  }
+  .page-hdr p {
+    font-size: 13px; color: var(--text-secondary); line-height: 1.65;
+    max-width: 580px; margin-bottom: 1.25rem;
+  }
+  .hdr-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .meta-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; padding: 3px 8px; border-radius: 4px;
+    background: var(--bg-secondary); color: var(--text-tertiary);
+    border: 0.5px solid var(--border);
+  }
+  .cert-badge {
+    font-size: 11px; font-weight: 500; padding: 3px 10px;
+    border-radius: 20px; background: var(--teal-50); color: var(--teal-800);
+  }
+
+  /* MAIN */
+  .main { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
+  /* CONCEPT BOX */
+  .concept-box {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.1rem;
+    margin-bottom: 2.5rem;
+    font-size: 13px; color: var(--text-secondary); line-height: 1.65;
+  }
+  .concept-box strong { color: var(--text); font-weight: 500; display: block; margin-bottom: 4px; }
+
+  /* PROJECT ENTRY */
+  .project { margin-bottom: 3.5rem; }
+  .project-hdr {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 12px;
+    margin-bottom: 1.5rem; flex-wrap: wrap;
+  }
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-tertiary);
+    margin-bottom: 4px;
+  }
+  .project-title {
+    font-size: 20px; font-weight: 600;
+    letter-spacing: -0.015em; color: var(--text);
+  }
+  .twitter-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 500;
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    border: 0.5px solid var(--border);
+    border-radius: 20px; text-decoration: none;
+    transition: all 0.15s; white-space: nowrap; flex-shrink: 0;
+  }
+  .twitter-link:hover { color: var(--text); border-color: var(--border-strong); background: var(--bg-secondary); }
+
+  /* Sections */
+  .section-lbl {
+    font-size: 11px; font-weight: 500; color: var(--text-tertiary);
+    letter-spacing: .06em; text-transform: uppercase;
+    margin-bottom: 10px; margin-top: 1.75rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-lbl::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+
+  /* Brief box */
+  .brief-box {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.4rem;
+    font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+  }
+  .brief-box p { margin-bottom: 0.75rem; }
+  .brief-box p:last-child { margin-bottom: 0; }
+  .brief-box ul { padding-left: 1.2rem; margin: 0.5rem 0; }
+  .brief-box li { margin-bottom: 4px; }
+  .brief-box code {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: var(--coral-700);
+  }
+  .brief-sig { margin-top: 1rem; font-style: italic; color: var(--text-tertiary); font-size: 12px; }
+
+  /* Screenshots */
+  .screenshots { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 640px) { .screenshots { grid-template-columns: 1fr; } }
+  .screenshot-card {
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-secondary);
+  }
+  .screenshot-card img { width: 100%; display: block; }
+  .screenshot-cap {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--text-tertiary);
+    padding: 6px 10px;
+    border-top: 0.5px solid var(--border);
+  }
+
+  /* Sign-off */
+  .signoff-box {
+    background: var(--bg);
+    border: 0.5px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem 1.6rem;
+    font-size: 13px; color: var(--text-secondary); line-height: 1.75;
+    position: relative;
+  }
+  .signoff-box::before {
+    content: '';
+    position: absolute; left: 0; top: 20%; bottom: 20%;
+    width: 2px; background: #5DCAA5;
+    border-radius: 2px;
+  }
+  .signoff-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--teal-600); margin-bottom: 10px;
+  }
+  .signoff-box p { margin-bottom: 0.65rem; }
+  .signoff-box p:last-child { margin-bottom: 0; }
+  .signoff-box code {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    background: var(--bg-secondary); border: 0.5px solid var(--border);
+    border-radius: 4px; padding: 1px 5px; color: var(--coral-700);
+  }
+  .signoff-sig { font-style: italic; color: var(--text-tertiary); font-size: 12px; margin-top: 0.75rem; }
+
+  /* More coming */
+  .more-coming {
+    border: 0.5px dashed var(--border-strong);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .more-coming-icon { font-size: 20px; margin-bottom: 8px; display: block; }
+  .more-coming-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .more-coming-desc { font-size: 12px; color: var(--text-tertiary); }
+
+  /* Divider */
+  .divider { height: 0.5px; background: var(--border); margin: 2rem 0; }
+
+  /* Footer */
+  .site-footer {
+    border-top: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+    max-width: 960px; margin: 0 auto;
+    padding: 1.5rem;
+  }
+  .site-footer p { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-tertiary); }
+  .footer-twitter { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
+  .footer-twitter:hover { color: var(--text); }
+
+  /* Animations */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .page-hdr { animation: fadeUp 0.4s ease both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">coding<span>newbie</span></a>
+  <div class="nav-links">
+    <a class="nav-back" href="index.html">← Back to learning plan</a>
+    <a class="nav-twitter" href="https://x.com/CodingNewbie80" target="_blank" rel="noopener">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.631L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+      Follow on X
+    </a>
+  </div>
+</nav>
+
+<div class="page-hdr">
+  <div class="breadcrumb">
+    <a href="index.html">codingnewbie.com</a>
+    <span>→</span>
+    <span>freeCodeCamp · Scientific Computing with Python</span>
+  </div>
+  <div class="provider-pill">freeCodeCamp</div>
+  <h1>Scientific Computing with Python</h1>
+  <p>Everything built during the freeCodeCamp Python v9 certification — labs, projects, and client work. One project at a time, in public.</p>
+  <div class="hdr-meta">
+    <span class="meta-tag">Phase 2</span>
+    <span class="meta-tag">~40 hrs</span>
+    <span class="meta-tag">project-based</span>
+    <span class="cert-badge">cert — free</span>
+  </div>
+</div>
+
+<main class="main">
+
+  <div class="concept-box">
+    <strong>The Claude as Client concept</strong>
+    Each project on this page started with a real client brief — written by Claude acting as a client with a genuine business need. The code was written entirely by me. Claude then reviewed the finished work and issued a formal sign-off. It's a way of making every lab feel like real work — because the decision logic, the requirements, and the sign-off mirror what you'd get in a professional engagement.
+  </div>
+
+  <!-- PROJECT 001 -->
+  <div class="project">
+    <div class="project-hdr">
+      <div>
+        <div class="project-num">Portfolio Project #001</div>
+        <div class="project-title">Agent Eligibility Checker</div>
+      </div>
+      <a class="twitter-link" href="https://x.com/CodingNewbie80/status/2051736470109426138?s=20" target="_blank" rel="noopener">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.631L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+        See the Twitter thread ↗
+      </a>
+    </div>
+
+    <div class="section-lbl">Client brief</div>
+    <div class="brief-box">
+      <p>Hi,</p>
+      <p>I'm building a simple AI agent and before it does anything else it needs to make a basic decision — should it attempt a task or not?</p>
+      <p>Here's the situation. My agent receives tasks from users but I need it to screen each task before attempting it. I need a simple eligibility checker built in Python that assesses whether the agent should proceed based on the following:</p>
+      <ul>
+        <li><code>task_complexity</code> — a number representing how complex the task is on a scale of 1-10</li>
+        <li><code>is_online</code> — whether the agent currently has an internet connection</li>
+        <li><code>has_api_key</code> — whether a valid API key is available</li>
+        <li><code>has_memory</code> — whether the agent has access to its memory/context</li>
+        <li><code>has_fallback</code> — whether a fallback model is available if the primary fails</li>
+      </ul>
+      <p>The rules are:</p>
+      <ul>
+        <li>If <code>task_complexity</code> has no value, print <code>Cannot assess task</code></li>
+        <li>Complexity of 1-3 — print <code>Proceed</code> only if online</li>
+        <li>Complexity of 4-7 — print <code>Proceed</code> only if online and API key available</li>
+        <li>Complexity of 8-10 — print <code>Proceed</code> only if online, API key, memory and fallback are all available</li>
+        <li>Otherwise print <code>Do not proceed</code></li>
+      </ul>
+      <p>This is exactly the kind of decision logic that sits inside real AI agents. Build it, and you've built something genuinely relevant to where this whole plan is heading.</p>
+      <div class="brief-sig">Claude, Anthropic 😄</div>
+    </div>
+
+    <div class="section-lbl">Code & output</div>
+    <div class="screenshots">
+      <div class="screenshot-card">
+        <img src="screenshots/001-code.png" alt="VS Code showing the Agent Eligibility Checker code" loading="lazy">
+        <div class="screenshot-cap">main.py — VS Code</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="screenshots/001-terminal.png" alt="Terminal output showing Proceed" loading="lazy">
+        <div class="screenshot-cap">Terminal output — python main.py</div>
+      </div>
+    </div>
+
+    <div class="section-lbl">Client sign-off</div>
+    <div class="signoff-box">
+      <div class="signoff-title">Client Sign Off — Coding Newbie Portfolio Project #001</div>
+      <p>Hi,</p>
+      <p>Just had a chance to run this through its paces and I'm happy to confirm it does exactly what I needed.</p>
+      <p>Tested it across all scenarios — low complexity tasks, mid-range, and the high complexity ones that need the full stack of resources available. It makes the right call every time. The <code>Do not proceed</code> fallback is exactly the safety net I was looking for.</p>
+      <p>Clean, readable code too — I can see what it's doing without needing it explained to me, which matters when my team need to maintain it.</p>
+      <p>Consider this signed off. Looking forward to seeing what you build next.</p>
+      <div class="signoff-sig">Claude, Client</div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MORE COMING -->
+  <div class="more-coming">
+    <span class="more-coming-icon">⏳</span>
+    <div class="more-coming-title">More projects on the way</div>
+    <div class="more-coming-desc">This page grows with every freeCodeCamp lab completed. Follow on X for updates as they land.</div>
+  </div>
+
+</main>
+
+<footer style="border-top: 0.5px solid var(--border); margin-top: 2rem;">
+  <div class="site-footer">
+    <p>© 2026 codingnewbie · site designed by Claude (Anthropic)</p>
+    <a class="footer-twitter" href="https://x.com/CodingNewbie80" target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.631L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+      Follow on X / Twitter
+    </a>
+  </div>
+</footer>
+
+</body>
+</html>
