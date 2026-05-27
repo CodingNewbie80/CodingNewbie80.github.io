@@ -14,7 +14,6 @@
     --coral-50: #FAECE7; --coral-700: #712B13; --coral-800: #712B13;
     --amber-50: #FAEEDA; --amber-700: #633806;
     --green-50: #EAF3DE; --green-700: #27500A; --green-800: #3B6D11;
-    --gray-50: #F1EFE8; --gray-400: #888780; --gray-700: #444441;
     --bg: #ffffff; --bg-secondary: #f7f6f3; --text: #1a1a1a;
     --text-secondary: #5a5a58; --text-tertiary: #888780;
     --border: rgba(0,0,0,0.12); --border-strong: rgba(0,0,0,0.22);
@@ -32,7 +31,6 @@
       --coral-50: #4A1B0C; --coral-700: #F0997B;
       --amber-50: #412402; --amber-700: #FAC775;
       --green-50: #173404; --green-700: #C0DD97; --green-800: #97C459;
-      --gray-50: #2C2C2A; --gray-700: #D3D1C7;
       --accent: #CECBF6;
     }
   }
@@ -109,24 +107,47 @@
   .phase { margin-bottom: 2.25rem; }
   .phase-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
   .phase-title { font-size: 17px; font-weight: 500; color: var(--text); }
-  .phase-meta { font-size: 12px; color: var(--text-tertiary); margin-left: auto; }
   .phase-sub { font-size: 13px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
 
-  /* TWO-COLUMN LAYOUT */
-  .phase-cols { display: grid; grid-template-columns: 1fr 270px; gap: 12px; align-items: start; margin-bottom: 12px; }
-  @media (max-width: 700px) { .phase-cols { grid-template-columns: 1fr; } }
+  /* TWO-COLUMN ROW — one card LHS, one status box RHS, always equal height */
+  .phase-row {
+    display: grid;
+    grid-template-columns: 1fr 270px;
+    gap: 12px;
+    align-items: stretch;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 700px) { .phase-row { grid-template-columns: 1fr; } }
 
-  /* STATUS BOX */
-  .status-box { background: var(--bg-secondary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: .9rem 1rem; }
+  /* CARD — full height within row */
+  .card {
+    background: var(--bg); border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: .9rem 1rem;
+    display: flex; flex-direction: column;
+  }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+  .card-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; }
+  .card-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 8px; flex: 1; }
+  .card-link { font-size: 11px; color: var(--blue-600); text-decoration: none; display: block; margin-bottom: 6px; }
+  .card-link:hover { text-decoration: underline; }
+  .card-ftr { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; padding-top: 7px; border-top: 0.5px solid var(--border); margin-top: auto; }
+
+  /* STATUS BOX — full height within row */
+  .status-box {
+    background: var(--bg-secondary); border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: .9rem 1rem;
+    display: flex; flex-direction: column;
+  }
   .status-box-label { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; display: block; }
   .status-indicator { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 500; margin-bottom: 8px; }
   .status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-  .dot-active { background: #5DCAA5; }
+  .dot-complete { background: #5DCAA5; }
+  .dot-active { background: #F5A623; }
   .dot-pending { background: var(--text-tertiary); }
-  .status-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 10px; }
-  .status-link { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 500; color: var(--blue-600); text-decoration: none; padding: 4px 10px; border: 0.5px solid var(--blue-600); border-radius: 20px; transition: all 0.15s; }
+  .status-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 10px; flex: 1; }
+  .status-link { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 500; color: var(--blue-600); text-decoration: none; padding: 4px 10px; border: 0.5px solid var(--blue-600); border-radius: 20px; transition: all 0.15s; margin-top: auto; align-self: flex-start; }
   .status-link:hover { background: var(--blue-50); }
-  .status-link-disabled { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-tertiary); padding: 4px 10px; border: 0.5px solid var(--border); border-radius: 20px; }
+  .status-link-disabled { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-tertiary); padding: 4px 10px; border: 0.5px solid var(--border); border-radius: 20px; margin-top: auto; align-self: flex-start; }
 
   /* BADGES */
   .badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
@@ -136,16 +157,6 @@
   .b-p4 { background: var(--coral-50); color: var(--coral-700); }
   .b-p5 { background: var(--amber-50); color: var(--amber-700); }
   .b-p6 { background: var(--green-50); color: var(--green-700); }
-
-  /* CARDS */
-  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
-  .card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: .9rem 1rem; }
-  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
-  .card-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; }
-  .card-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 8px; }
-  .card-link { font-size: 11px; color: var(--blue-600); text-decoration: none; display: block; margin-bottom: 6px; }
-  .card-link:hover { text-decoration: underline; }
-  .card-ftr { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; padding-top: 7px; border-top: 0.5px solid var(--border); }
 
   /* PROVIDER PILLS */
   .prov { font-size: 10px; padding: 2px 7px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; font-weight: 500; }
@@ -163,7 +174,7 @@
   .tag { font-size: 11px; padding: 2px 6px; border-radius: 4px; background: var(--bg-secondary); color: var(--text-secondary); border: 0.5px solid var(--border); }
 
   /* SECTION LABEL */
-  .section-lbl { font-size: 11px; font-weight: 500; color: var(--text-tertiary); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 8px; margin-top: 12px; }
+  .section-lbl { font-size: 11px; font-weight: 500; color: var(--text-tertiary); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 8px; margin-top: 16px; }
 
   /* DIVIDER */
   .divider { height: 0.5px; background: var(--border); margin: .25rem 0 1.75rem; }
@@ -266,22 +277,20 @@
     <div class="phase-hdr">
       <span class="badge b-p1">Phase 1</span>
       <span class="phase-title">Microsoft AI Agents for Beginners — concepts only</span>
-      <span class="phase-meta">~2 weeks · no coding required</span>
     </div>
     <p class="phase-sub">A brilliant free introduction to the world of AI agents — the perfect starting point before a single line of code is written. <strong>Skip every code section entirely</strong> — Python comes in Phase 2.</p>
-    <div class="phase-cols">
-      <div class="cards">
-        <div class="card">
-          <div class="card-top"><span class="card-title">AI Agents for Beginners — 12 episodes (concepts pass)</span><span class="prov p-ms">Microsoft</span></div>
-          <p class="card-desc">Covers agent design patterns, AutoGen, Semantic Kernel, RAG, multi-agent systems, and tool use. Watch everything, note everything, skip all code snippets.</p>
-          <a class="card-link" href="https://learn.microsoft.com/en-gb/shows/ai-agents-for-beginners/" target="_blank">learn.microsoft.com/shows/ai-agents-for-beginners ↗</a>
-          <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">concepts only</span><span class="tag">Obsidian notes</span></div>
-        </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">AI Agents for Beginners — 12 episodes (concepts pass)</span><span class="prov p-ms">Microsoft</span></div>
+        <p class="card-desc">Covers agent design patterns, AutoGen, Semantic Kernel, RAG, multi-agent systems, and tool use. Watch everything, note everything, skip all code snippets.</p>
+        <a class="card-link" href="https://learn.microsoft.com/en-gb/shows/ai-agents-for-beginners/" target="_blank">learn.microsoft.com/shows/ai-agents-for-beginners ↗</a>
+        <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">concepts only</span><span class="tag">Obsidian notes</span></div>
       </div>
       <div class="status-box">
         <span class="status-box-label">Status</span>
-        <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
-        <p class="status-desc">Portfolio page will appear once work begins on this module.</p>
+        <div class="status-indicator"><span class="status-dot dot-complete"></span><span style="font-size:12px;color:var(--text);font-weight:500;">Complete</span></div>
+        <p class="status-desc">All 12 episodes watched. Concepts pass done — code sections revisited in Phase 2.</p>
         <span class="status-link-disabled">No outputs yet</span>
       </div>
     </div>
@@ -294,18 +303,15 @@
     <div class="phase-hdr">
       <span class="badge b-p2">Phase 2</span>
       <span class="phase-title">Python foundations</span>
-      <span class="phase-meta">~4–5 weeks</span>
     </div>
     <p class="phase-sub">Everything in this plan runs on Python. Get solid here before moving on — it pays back every hour you invest. The Anthropic notebooks layer in naturally from week 3.</p>
 
-    <div class="phase-cols">
-      <div class="cards">
-        <div class="card">
-          <div class="card-top"><span class="card-title">Scientific Computing with Python (v9)</span><span class="prov p-fcc">freeCodeCamp</span></div>
-          <p class="card-desc">15 real projects built in-browser. The most structured free Python cert available — project-based from day one. Primary Python course.</p>
-          <a class="card-link" href="https://www.freecodecamp.org/learn/python-v9/" target="_blank">freecodecamp.org/learn/python-v9 ↗</a>
-          <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">primary</span><span class="tag">~40 hrs</span></div>
-        </div>
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Python Certification</span><span class="prov p-fcc">freeCodeCamp</span></div>
+        <p class="card-desc">15 real projects built in-browser. The most structured free Python cert available — project-based from day one. Primary Python course.</p>
+        <a class="card-link" href="https://www.freecodecamp.org/learn/python-v9/" target="_blank">freecodecamp.org/learn/python-v9 ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">primary</span></div>
       </div>
       <div class="status-box">
         <span class="status-box-label">Status</span>
@@ -315,31 +321,27 @@
       </div>
     </div>
 
-    <div class="phase-cols">
-      <div class="cards">
-        <div class="card">
-          <div class="card-top"><span class="card-title">Anthropic GitHub courses — API fundamentals notebooks</span><span class="prov p-anth">Anthropic</span></div>
-          <p class="card-desc">Jupyter notebooks covering the Claude SDK, API keys, streaming, and multimodal prompts. Start alongside Python in week 3.</p>
-          <a class="card-link" href="https://github.com/anthropics/courses" target="_blank">github.com/anthropics/courses ↗</a>
-          <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">start week 3</span><span class="tag">notebooks</span></div>
-        </div>
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Anthropic GitHub courses — API fundamentals notebooks</span><span class="prov p-anth">Anthropic</span></div>
+        <p class="card-desc">Jupyter notebooks covering the Claude SDK, API keys, streaming, and multimodal prompts. Start alongside Python in week 3.</p>
+        <a class="card-link" href="https://github.com/anthropics/courses" target="_blank">github.com/anthropics/courses ↗</a>
+        <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">notebooks</span></div>
       </div>
       <div class="status-box">
         <span class="status-box-label">Status</span>
         <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
-        <p class="status-desc">Begins week 3 of the Python course.</p>
+        <p class="status-desc">Begins alongside the Python course.</p>
         <span class="status-link-disabled">No outputs yet</span>
       </div>
     </div>
 
-    <div class="phase-cols">
-      <div class="cards">
-        <div class="card">
-          <div class="card-top"><span class="card-title">AI Agents for Beginners — code sections revisit</span><span class="prov p-ms">Microsoft</span></div>
-          <p class="card-desc">Return to the 12 Microsoft episodes once Python makes sense. Work through the Semantic Kernel and AutoGen code sections skipped in Phase 1.</p>
-          <a class="card-link" href="https://github.com/microsoft/ai-agents-for-beginners" target="_blank">github.com/microsoft/ai-agents-for-beginners ↗</a>
-          <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">code sections only</span><span class="tag">fork & run the repo</span></div>
-        </div>
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">AI Agents for Beginners — code sections revisit</span><span class="prov p-ms">Microsoft</span></div>
+        <p class="card-desc">Return to the 12 Microsoft episodes once Python makes sense. Work through the Semantic Kernel and AutoGen code sections skipped in Phase 1.</p>
+        <a class="card-link" href="https://github.com/microsoft/ai-agents-for-beginners" target="_blank">github.com/microsoft/ai-agents-for-beginners ↗</a>
+        <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">code sections only</span></div>
       </div>
       <div class="status-box">
         <span class="status-box-label">Status</span>
@@ -357,34 +359,50 @@
     <div class="phase-hdr">
       <span class="badge b-p3">Phase 3</span>
       <span class="phase-title">AI fundamentals — Google, Microsoft & NVIDIA</span>
-      <span class="phase-meta">~3–4 weeks · runs alongside end of Phase 2</span>
     </div>
     <p class="phase-sub">Build the conceptual foundation across multiple big players before going deep. Deliberately non-technical — understanding the landscape before building in it.</p>
-    <div class="phase-cols">
-      <div class="cards">
-        <div class="card">
-          <div class="card-top"><span class="card-title">Introduction to Generative AI learning path</span><span class="prov p-google">Google Cloud</span></div>
-          <p class="card-desc">Three-course path: Intro to Gen AI, Intro to LLMs, and Responsible AI. Free skill badges via GEAR programme.</p>
-          <a class="card-link" href="https://www.skills.google/paths/118" target="_blank">skills.google/paths/118 ↗</a>
-          <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">skill badges</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top"><span class="card-title">Generative AI for Beginners (21 lessons)</span><span class="prov p-ms">Microsoft</span></div>
-          <p class="card-desc">How LLMs work, RAG, fine-tuning, and responsible AI. The best free conceptual deep-dive available.</p>
-          <a class="card-link" href="https://github.com/microsoft/generative-ai-for-beginners" target="_blank">github.com/microsoft/generative-ai-for-beginners ↗</a>
-          <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">21 lessons</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top"><span class="card-title">Generative AI Explained (no-code intro)</span><span class="prov p-nvidia">NVIDIA DLI</span></div>
-          <p class="card-desc">NVIDIA's free no-code intro. Short (~2 hrs) but earns an NVIDIA DLI certificate — a great first NVIDIA credential.</p>
-          <a class="card-link" href="https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-07+V1" target="_blank">learn.nvidia.com ↗</a>
-          <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">NVIDIA DLI</span><span class="tag">~2 hrs</span></div>
-        </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Introduction to Generative AI learning path</span><span class="prov p-google">Google Cloud</span></div>
+        <p class="card-desc">Three-course path: Intro to Gen AI, Intro to LLMs, and Responsible AI. Free skill badges via GEAR programme.</p>
+        <a class="card-link" href="https://www.skills.google/paths/118" target="_blank">skills.google/paths/118 ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">skill badges</span></div>
       </div>
       <div class="status-box">
         <span class="status-box-label">Status</span>
         <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
-        <p class="status-desc">Portfolio pages will appear per provider once work begins.</p>
+        <p class="status-desc">Runs alongside the end of Phase 2.</p>
+        <span class="status-link-disabled">No outputs yet</span>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Generative AI for Beginners (21 lessons)</span><span class="prov p-ms">Microsoft</span></div>
+        <p class="card-desc">How LLMs work, RAG, fine-tuning, and responsible AI. The best free conceptual deep-dive available.</p>
+        <a class="card-link" href="https://github.com/microsoft/generative-ai-for-beginners" target="_blank">github.com/microsoft/generative-ai-for-beginners ↗</a>
+        <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">21 lessons</span></div>
+      </div>
+      <div class="status-box">
+        <span class="status-box-label">Status</span>
+        <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
+        <p class="status-desc">Runs alongside the end of Phase 2.</p>
+        <span class="status-link-disabled">No outputs yet</span>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Generative AI Explained (no-code intro)</span><span class="prov p-nvidia">NVIDIA DLI</span></div>
+        <p class="card-desc">NVIDIA's free no-code intro. Short but earns an NVIDIA DLI certificate — a great first NVIDIA credential.</p>
+        <a class="card-link" href="https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-07+V1" target="_blank">learn.nvidia.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">NVIDIA DLI</span></div>
+      </div>
+      <div class="status-box">
+        <span class="status-box-label">Status</span>
+        <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
+        <p class="status-desc">Runs alongside the end of Phase 2.</p>
         <span class="status-link-disabled">No outputs yet</span>
       </div>
     </div>
@@ -397,40 +415,65 @@
     <div class="phase-hdr">
       <span class="badge b-p4">Phase 4</span>
       <span class="phase-title">Prompt engineering & the Claude API — Anthropic</span>
-      <span class="phase-meta">~3–4 weeks</span>
     </div>
     <p class="phase-sub">Learn to talk to LLMs properly and start building with the Claude API. Anthropic takes centre stage here as a focused thread.</p>
-    <div class="phase-cols">
-      <div class="cards">
-        <div class="card">
-          <div class="card-top"><span class="card-title">Claude 101</span><span class="prov p-anth">Anthropic Academy</span></div>
-          <p class="card-desc">Core features, capabilities, and limits. Sets the vocabulary for everything in the Academy that follows.</p>
-          <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
-          <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">start here</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top"><span class="card-title">AI Fluency: Framework & Foundations</span><span class="prov p-anth">Anthropic Academy</span></div>
-          <p class="card-desc">Anthropic's 4D framework for designing, evaluating and iterating on prompts.</p>
-          <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
-          <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">prompt engineering</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top"><span class="card-title">Prompt Engineering Interactive Tutorial</span><span class="prov p-anth">Anthropic</span></div>
-          <p class="card-desc">9-chapter hands-on notebook course. Chain-of-thought, tool use, RAG — the practical companion to AI Fluency.</p>
-          <a class="card-link" href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank">github.com/anthropics/prompt-eng-interactive-tutorial ↗</a>
-          <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">hands-on</span><span class="tag">notebooks</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top"><span class="card-title">Building with the Claude API</span><span class="prov p-anth">Anthropic Academy</span></div>
-          <p class="card-desc">8+ hrs. System prompts, tool use, context windows, RAG, architecture patterns. The most important single course in this plan.</p>
-          <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
-          <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">core</span><span class="tag">8+ hrs</span></div>
-        </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Claude 101</span><span class="prov p-anth">Anthropic Academy</span></div>
+        <p class="card-desc">Core features, capabilities, and limits. Sets the vocabulary for everything in the Academy that follows.</p>
+        <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">start here</span></div>
       </div>
       <div class="status-box">
         <span class="status-box-label">Status</span>
         <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
-        <p class="status-desc">Follows Phase 3. Portfolio page will appear once work begins.</p>
+        <p class="status-desc">Follows Phase 3.</p>
+        <span class="status-link-disabled">No outputs yet</span>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">AI Fluency: Framework & Foundations</span><span class="prov p-anth">Anthropic Academy</span></div>
+        <p class="card-desc">Anthropic's 4D framework for designing, evaluating and iterating on prompts.</p>
+        <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">prompt engineering</span></div>
+      </div>
+      <div class="status-box">
+        <span class="status-box-label">Status</span>
+        <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
+        <p class="status-desc">Follows Phase 3.</p>
+        <span class="status-link-disabled">No outputs yet</span>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Prompt Engineering Interactive Tutorial</span><span class="prov p-anth">Anthropic</span></div>
+        <p class="card-desc">9-chapter hands-on notebook course. Chain-of-thought, tool use, RAG — the practical companion to AI Fluency.</p>
+        <a class="card-link" href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank">github.com/anthropics/prompt-eng-interactive-tutorial ↗</a>
+        <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">hands-on</span><span class="tag">notebooks</span></div>
+      </div>
+      <div class="status-box">
+        <span class="status-box-label">Status</span>
+        <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
+        <p class="status-desc">Follows Phase 3.</p>
+        <span class="status-link-disabled">No outputs yet</span>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Building with the Claude API</span><span class="prov p-anth">Anthropic Academy</span></div>
+        <p class="card-desc">8+ hrs. System prompts, tool use, context windows, RAG, architecture patterns. The most important single course in this plan.</p>
+        <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">core</span><span class="tag">8+ hrs</span></div>
+      </div>
+      <div class="status-box">
+        <span class="status-box-label">Status</span>
+        <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
+        <p class="status-desc">Follows Phase 3.</p>
         <span class="status-link-disabled">No outputs yet</span>
       </div>
     </div>
@@ -443,25 +486,32 @@
     <div class="phase-hdr">
       <span class="badge b-p5">Phase 5</span>
       <span class="phase-title">Building AI agents — Microsoft, Google & NVIDIA</span>
-      <span class="phase-meta">~6–8 weeks · the engineering core</span>
     </div>
     <p class="phase-sub">From "I understand AI" to "I can build agents". Microsoft on frameworks, Google on cloud-native agents, NVIDIA on production RAG systems.</p>
 
     <div class="section-lbl">Microsoft — agent frameworks & Copilot Studio</div>
-    <div class="phase-cols">
-      <div class="cards">
-        <div class="card">
-          <div class="card-top"><span class="card-title">AI Agents for Beginners (full GitHub course)</span><span class="prov p-ms">Microsoft</span></div>
-          <p class="card-desc">12 lessons with code: agent design patterns, tool use, RAG, multi-agent systems, AutoGen, Semantic Kernel, and Azure AI Foundry.</p>
-          <a class="card-link" href="https://microsoft.github.io/ai-agents-for-beginners/" target="_blank">microsoft.github.io/ai-agents-for-beginners ↗</a>
-          <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">Python</span><span class="tag">run the code</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top"><span class="card-title">Applied Skills: Create agents in Copilot Studio</span><span class="prov p-ms">Microsoft Learn</span></div>
-          <p class="card-desc">Lab-assessed credential. Scenario-based assessment proving you can build agents in Copilot Studio. Free to earn.</p>
-          <a class="card-link" href="https://learn.microsoft.com/en-us/credentials/applied/create-agents-copilot-studio/" target="_blank">learn.microsoft.com/credentials ↗</a>
-          <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">lab-assessed</span></div>
-        </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">AI Agents for Beginners (full GitHub course)</span><span class="prov p-ms">Microsoft</span></div>
+        <p class="card-desc">12 lessons with code: agent design patterns, tool use, RAG, multi-agent systems, AutoGen, Semantic Kernel, and Azure AI Foundry.</p>
+        <a class="card-link" href="https://microsoft.github.io/ai-agents-for-beginners/" target="_blank">microsoft.github.io/ai-agents-for-beginners ↗</a>
+        <div class="card-ftr"><span class="no-cert">no cert</span><span class="tag">Python</span><span class="tag">run the code</span></div>
+      </div>
+      <div class="status-box">
+        <span class="status-box-label">Status</span>
+        <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
+        <p class="status-desc">Phase 5 begins after Phases 3 & 4 are complete.</p>
+        <span class="status-link-disabled">No outputs yet</span>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Applied Skills: Create agents in Copilot Studio</span><span class="prov p-ms">Microsoft Learn</span></div>
+        <p class="card-desc">Lab-assessed credential. Scenario-based assessment proving you can build agents in Copilot Studio. Free to earn.</p>
+        <a class="card-link" href="https://learn.microsoft.com/en-us/credentials/applied/create-agents-copilot-studio/" target="_blank">learn.microsoft.com/credentials ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">lab-assessed</span></div>
       </div>
       <div class="status-box">
         <span class="status-box-label">Status</span>
@@ -472,14 +522,13 @@
     </div>
 
     <div class="section-lbl">Google — cloud-native agent development</div>
-    <div class="phase-cols">
-      <div class="cards">
-        <div class="card">
-          <div class="card-top"><span class="card-title">Agentic AI on Google Cloud learning path</span><span class="prov p-google">Google Cloud</span></div>
-          <p class="card-desc">Multi-agent systems, Agent Development Kit (ADK), MCP integration, and enterprise deployment on Google Cloud.</p>
-          <a class="card-link" href="https://www.skills.google/paths/3273" target="_blank">skills.google/paths/3273 ↗</a>
-          <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">ADK</span><span class="tag">MCP</span></div>
-        </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Agentic AI on Google Cloud learning path</span><span class="prov p-google">Google Cloud</span></div>
+        <p class="card-desc">Multi-agent systems, Agent Development Kit (ADK), MCP integration, and enterprise deployment on Google Cloud.</p>
+        <a class="card-link" href="https://www.skills.google/paths/3273" target="_blank">skills.google/paths/3273 ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">ADK</span><span class="tag">MCP</span></div>
       </div>
       <div class="status-box">
         <span class="status-box-label">Status</span>
@@ -490,20 +539,28 @@
     </div>
 
     <div class="section-lbl">NVIDIA — RAG agents & production LLM systems</div>
-    <div class="phase-cols">
-      <div class="cards">
-        <div class="card">
-          <div class="card-top"><span class="card-title">Building RAG Agents with LLMs</span><span class="prov p-nvidia">NVIDIA DLI</span></div>
-          <p class="card-desc">NVIDIA's flagship agent course. Dialog management, document reasoning, state management, deploying agentic systems at scale.</p>
-          <a class="card-link" href="https://courses.nvidia.com/courses/course-v1:DLI+S-FX-15+V1/" target="_blank">courses.nvidia.com ↗</a>
-          <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">NVIDIA DLI</span><span class="tag">RAG</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top"><span class="card-title">Intro to Model Context Protocol (MCP)</span><span class="prov p-anth">Anthropic Academy</span></div>
-          <p class="card-desc">Build MCP servers and clients in Python. The three primitives that let any AI agent talk to the outside world.</p>
-          <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
-          <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">MCP</span><span class="tag">Python SDK</span></div>
-        </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Building RAG Agents with LLMs</span><span class="prov p-nvidia">NVIDIA DLI</span></div>
+        <p class="card-desc">NVIDIA's flagship agent course. Dialog management, document reasoning, state management, deploying agentic systems at scale.</p>
+        <a class="card-link" href="https://courses.nvidia.com/courses/course-v1:DLI+S-FX-15+V1/" target="_blank">courses.nvidia.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">NVIDIA DLI</span><span class="tag">RAG</span></div>
+      </div>
+      <div class="status-box">
+        <span class="status-box-label">Status</span>
+        <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
+        <p class="status-desc">Phase 5 begins after Phases 3 & 4 are complete.</p>
+        <span class="status-link-disabled">No outputs yet</span>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Intro to Model Context Protocol (MCP)</span><span class="prov p-anth">Anthropic Academy</span></div>
+        <p class="card-desc">Build MCP servers and clients in Python. The three primitives that let any AI agent talk to the outside world.</p>
+        <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">MCP</span><span class="tag">Python SDK</span></div>
       </div>
       <div class="status-box">
         <span class="status-box-label">Status</span>
@@ -520,32 +577,18 @@
   <div class="phase">
     <div class="phase-hdr">
       <span class="badge b-p6">Phase 6</span>
-      <span class="phase-title">Cloud deployment — Azure (lead), Google Cloud & AWS</span>
-      <span class="phase-meta">~5–7 weeks · Azure first, others as bolt-ons</span>
+      <span class="phase-title">Cloud deployment — Azure, Google Cloud & AWS</span>
     </div>
-    <p class="phase-sub">Where do your agents live? Lead with Azure — AZ-900 is the most recognised entry cloud credential globally. Google Cloud and AWS bolt on after.</p>
+    <p class="phase-sub">Where do your agents live? Google Cloud and AWS follow after Azure.</p>
 
-    <div class="section-lbl">Azure — lead provider</div>
-    <div class="phase-cols">
-      <div class="cards">
-        <div class="card">
-          <div class="card-top"><span class="card-title">Azure Fundamentals (AZ-900) learning path</span><span class="prov p-ms">Microsoft Learn</span></div>
-          <p class="card-desc">Cloud concepts, Azure services, and pricing models. Study free, exam ~£90. The most widely recognised entry-level cloud cert globally.</p>
-          <a class="card-link" href="https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/" target="_blank">learn.microsoft.com — AZ-900 ↗</a>
-          <div class="card-ftr"><span class="cert-paid">cert — paid exam ~£90</span><span class="tag">study free</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top"><span class="card-title">Azure AI Fundamentals (AI-900) learning path</span><span class="prov p-ms">Microsoft Learn</span></div>
-          <p class="card-desc">AI workloads, ML concepts, and Azure AI services. Natural follow-on from AZ-900. Study free, exam ~£90.</p>
-          <a class="card-link" href="https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/" target="_blank">learn.microsoft.com — AI-900 ↗</a>
-          <div class="card-ftr"><span class="cert-paid">cert — paid exam ~£90</span><span class="tag">agent deployment</span></div>
-        </div>
-        <div class="card">
-          <div class="card-top"><span class="card-title">Claude with Amazon Bedrock</span><span class="prov p-anth">Anthropic Academy</span></div>
-          <p class="card-desc">Deploy Claude via AWS Bedrock — RAG pipelines, tool use, batch processing, and production patterns in the AWS ecosystem.</p>
-          <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
-          <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">AWS</span><span class="tag">production</span></div>
-        </div>
+    <div class="section-lbl">Azure</div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Azure Fundamentals (AZ-900) learning path</span><span class="prov p-ms">Microsoft Learn</span></div>
+        <p class="card-desc">Cloud concepts, Azure services, and pricing models. Study free, exam ~£90. The most widely recognised entry-level cloud cert globally.</p>
+        <a class="card-link" href="https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/" target="_blank">learn.microsoft.com — AZ-900 ↗</a>
+        <div class="card-ftr"><span class="cert-paid">cert — paid exam</span><span class="tag">study free</span></div>
       </div>
       <div class="status-box">
         <span class="status-box-label">Status</span>
@@ -555,15 +598,44 @@
       </div>
     </div>
 
-    <div class="section-lbl">Google Cloud — bolt-on</div>
-    <div class="phase-cols">
-      <div class="cards">
-        <div class="card">
-          <div class="card-top"><span class="card-title">Claude with Google Cloud Vertex AI</span><span class="prov p-anth">Anthropic Academy</span></div>
-          <p class="card-desc">Deploy Claude via Google Vertex AI. Pairs with the Agentic AI path from Phase 5.</p>
-          <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
-          <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">Vertex AI</span></div>
-        </div>
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Azure AI Fundamentals (AI-900) learning path</span><span class="prov p-ms">Microsoft Learn</span></div>
+        <p class="card-desc">AI workloads, ML concepts, and Azure AI services. Natural follow-on from AZ-900. Study free, exam ~£90.</p>
+        <a class="card-link" href="https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/" target="_blank">learn.microsoft.com — AI-900 ↗</a>
+        <div class="card-ftr"><span class="cert-paid">cert — paid exam</span><span class="tag">agent deployment</span></div>
+      </div>
+      <div class="status-box">
+        <span class="status-box-label">Status</span>
+        <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
+        <p class="status-desc">The final deployment phase — a long way to go yet.</p>
+        <span class="status-link-disabled">No outputs yet</span>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Claude with Amazon Bedrock</span><span class="prov p-anth">Anthropic Academy</span></div>
+        <p class="card-desc">Deploy Claude via AWS Bedrock — RAG pipelines, tool use, batch processing, and production patterns in the AWS ecosystem.</p>
+        <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">AWS</span><span class="tag">production</span></div>
+      </div>
+      <div class="status-box">
+        <span class="status-box-label">Status</span>
+        <div class="status-indicator"><span class="status-dot dot-pending"></span><span style="font-size:12px;color:var(--text-secondary);">Not yet started</span></div>
+        <p class="status-desc">The final deployment phase — a long way to go yet.</p>
+        <span class="status-link-disabled">No outputs yet</span>
+      </div>
+    </div>
+
+    <div class="section-lbl">Google Cloud</div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">Claude with Google Cloud Vertex AI</span><span class="prov p-anth">Anthropic Academy</span></div>
+        <p class="card-desc">Deploy Claude via Google Vertex AI. Pairs with the Agentic AI path from Phase 5.</p>
+        <a class="card-link" href="https://anthropic.skilljar.com" target="_blank">anthropic.skilljar.com ↗</a>
+        <div class="card-ftr"><span class="cert-free">cert — free</span><span class="tag">Vertex AI</span></div>
       </div>
       <div class="status-box">
         <span class="status-box-label">Status</span>
@@ -573,15 +645,14 @@
       </div>
     </div>
 
-    <div class="section-lbl">AWS — bolt-on</div>
-    <div class="phase-cols">
-      <div class="cards">
-        <div class="card">
-          <div class="card-top"><span class="card-title">AWS Cloud Practitioner Essentials</span><span class="prov p-aws">AWS</span></div>
-          <p class="card-desc">Amazon's free foundational cloud course. The other major entry-level cloud credential alongside AZ-900.</p>
-          <a class="card-link" href="https://aws.amazon.com/training/learn-about/cloud-practitioner/" target="_blank">aws.amazon.com/training ↗</a>
-          <div class="card-ftr"><span class="cert-paid">cert — paid exam</span><span class="tag">study free</span></div>
-        </div>
+    <div class="section-lbl">AWS</div>
+
+    <div class="phase-row">
+      <div class="card">
+        <div class="card-top"><span class="card-title">AWS Cloud Practitioner Essentials</span><span class="prov p-aws">AWS</span></div>
+        <p class="card-desc">Amazon's free foundational cloud course. The other major entry-level cloud credential alongside AZ-900.</p>
+        <a class="card-link" href="https://aws.amazon.com/training/learn-about/cloud-practitioner/" target="_blank">aws.amazon.com/training ↗</a>
+        <div class="card-ftr"><span class="cert-paid">cert — paid exam</span><span class="tag">study free</span></div>
       </div>
       <div class="status-box">
         <span class="status-box-label">Status</span>
