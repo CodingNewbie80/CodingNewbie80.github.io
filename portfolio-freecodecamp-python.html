@@ -188,14 +188,48 @@
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: var(--bg-secondary);
+    cursor: zoom-in;
   }
-  .screenshot-card img { width: 100%; display: block; }
+  .screenshot-card img { width: 100%; display: block; transition: opacity 0.15s; }
+  .screenshot-card:hover img { opacity: 0.85; }
   .screenshot-cap {
     font-family: 'DM Mono', monospace;
     font-size: 10px; color: var(--text-tertiary);
     padding: 6px 10px;
     border-top: 0.5px solid var(--border);
   }
+  .screenshot-hint {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--text-tertiary);
+    padding: 4px 10px 6px;
+    font-style: italic;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.85);
+    align-items: center; justify-content: center;
+    cursor: zoom-out;
+    padding: 1.5rem;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img {
+    max-width: 100%; max-height: 90vh;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+    cursor: default;
+  }
+  .lightbox-close {
+    position: fixed; top: 1rem; right: 1.25rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; color: rgba(255,255,255,0.6);
+    cursor: pointer; user-select: none;
+    padding: 4px 10px; border: 0.5px solid rgba(255,255,255,0.2);
+    border-radius: 20px; transition: all 0.15s;
+  }
+  .lightbox-close:hover { color: #fff; border-color: rgba(255,255,255,0.5); }
 
   /* Sign-off */
   .signoff-box {
@@ -325,10 +359,12 @@
       <div class="screenshot-card">
         <img src="screenshots/002-code.png" alt="VS Code showing the SaaS Billing Validation Engine code" loading="lazy">
         <div class="screenshot-cap">main.py — VS Code</div>
+        <div class="screenshot-hint">click to enlarge</div>
       </div>
       <div class="screenshot-card">
         <img src="screenshots/002-terminal.png" alt="Terminal output for the billing validation function" loading="lazy">
         <div class="screenshot-cap">Terminal output — python main.py</div>
+        <div class="screenshot-hint">click to enlarge</div>
       </div>
     </div>
 
@@ -390,10 +426,12 @@
       <div class="screenshot-card">
         <img src="screenshots/001-code.png" alt="VS Code showing the Agent Eligibility Checker code" loading="lazy">
         <div class="screenshot-cap">main.py — VS Code</div>
+        <div class="screenshot-hint">click to enlarge</div>
       </div>
       <div class="screenshot-card">
         <img src="screenshots/001-terminal.png" alt="Terminal output showing Proceed" loading="lazy">
         <div class="screenshot-cap">Terminal output — python main.py</div>
+        <div class="screenshot-hint">click to enlarge</div>
       </div>
     </div>
 
@@ -430,6 +468,38 @@
     </a>
   </div>
 </footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lightbox-close">close ✕</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  document.querySelectorAll('.screenshot-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const img = card.querySelector('img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('active');
+    });
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target !== lightboxImg) lightbox.classList.remove('active');
+  });
+
+  document.getElementById('lightbox-close').addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+  });
+</script>
 
 </body>
 </html>
