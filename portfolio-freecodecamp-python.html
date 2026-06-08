@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GEPKWJTSL8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-GEPKWJTSL8');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coding Newbie — freeCodeCamp Python Portfolio</title>
@@ -285,11 +276,11 @@
   <div class="breadcrumb">
     <a href="index.html">codingnewbie.com</a>
     <span>→</span>
-    <span>freeCodeCamp · Scientific Computing with Python</span>
+    <span>freeCodeCamp · Python Certification</span>
   </div>
   <div class="provider-pill">freeCodeCamp</div>
-  <h1>Scientific Computing with Python</h1>
-  <p>Everything built during the freeCodeCamp Python v9 certification — labs, projects, and client work. One project at a time, in public.</p>
+  <h1>Python Certification</h1>
+  <p>Everything built during the freeCodeCamp Python certification — labs, projects, and client work. One project at a time, in public.</p>
   <div class="hdr-meta">
     <span class="meta-tag">Phase 2</span>
     <span class="meta-tag">~40 hrs</span>
@@ -304,6 +295,58 @@
     <strong>The Claude as Client concept</strong>
     Each project on this page started with a real client brief — written by Claude acting as a client with a genuine business need. The code was written entirely by me. Claude then reviewed the finished work and issued a formal sign-off. It's a way of making every lab feel like real work — because the decision logic, the requirements, and the sign-off mirror what you'd get in a professional engagement.
   </div>
+
+  <!-- PROJECT 002 -->
+  <div class="project">
+    <div class="project-hdr">
+      <div>
+        <div class="project-num">Portfolio Project #002</div>
+        <div class="project-title">SaaS Billing Validation Engine</div>
+      </div>
+      <a class="twitter-link" href="https://x.com/CodingNewbie80/status/2064057798548127786?s=20" target="_blank" rel="noopener">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.631L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+        See the Twitter thread ↗
+      </a>
+    </div>
+
+    <div class="section-lbl">Client brief</div>
+    <div class="brief-box">
+      <p>Hi,</p>
+      <p>I'm building out a billing system for my SaaS platform and I need a simple pricing engine to sit at the heart of it.</p>
+      <p>Before we can charge a customer anything, the system needs to validate the inputs and calculate the correct final price. Here's what I need:</p>
+      <p>The function should accept a product price and a discount percentage. Before doing any calculation it needs to reject bad data gracefully — non-numeric inputs, prices at or below zero, and discounts outside the 0-100 range should all return clear, specific error messages rather than crashing.</p>
+      <p>If everything checks out, I need the final price after the discount applied, ready to be passed on to the payment processor.</p>
+      <p>Clean, reliable, and predictable — this is going in a production system so it needs to handle whatever gets thrown at it.</p>
+      <div class="brief-sig">Claude, Head of Engineering, Anthropic Internal Tools</div>
+    </div>
+
+    <div class="section-lbl">Code & output</div>
+    <div class="screenshots">
+      <div class="screenshot-card">
+        <img src="screenshots/002-code.png" alt="VS Code showing the SaaS Billing Validation Engine code" loading="lazy">
+        <div class="screenshot-cap">main.py — VS Code</div>
+      </div>
+      <div class="screenshot-card">
+        <img src="screenshots/002-terminal.png" alt="Terminal output for the billing validation function" loading="lazy">
+        <div class="screenshot-cap">Terminal output — python main.py</div>
+      </div>
+    </div>
+
+    <div class="section-lbl">Client sign-off</div>
+    <div class="signoff-box">
+      <div class="signoff-title">Client Sign Off — Coding Newbie Portfolio Project #002</div>
+      <p>Hi,</p>
+      <p>Just run this through a full set of test scenarios and I'm satisfied it does exactly what the billing system needs.</p>
+      <p>The validation layer is solid — non-numeric inputs, zero or negative prices, and out-of-range discounts all return clear, specific error messages rather than crashing. That's exactly what I need when this sits upstream of a payment processor.</p>
+      <p>The calculation is clean and correct. Tested it across multiple price and discount combinations and the maths is right every time.</p>
+      <p>One observation for future development — you'll want to add some <code>print</code> statements or logging around the valid calculation outputs when this goes into a wider system, so the results surface properly downstream. But for the core function brief, this is signed off.</p>
+      <p>Good work. Looking forward to seeing what you build next.</p>
+      <div class="signoff-sig">Claude, Head of Engineering, Anthropic Internal Tools</div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
 
   <!-- PROJECT 001 -->
   <div class="project">
